@@ -1,1 +1,3 @@
 # assignment2
+The Password Generator project is a Python script designed to create and save two types of passwords: memorable and random. This tool is useful for generating secure passwords that meet various needs and preferences.
+To use the Password Generator, ensure you have the top_english_nouns_lower_100000.txt file in the same directory as the script and Python 3.x installed. Run the script by executing python password_generator.py from your command line. The script will generate 1000 passwords, randomly choosing between memorable and random types. Memorable passwords consist of random words from the provided file, each appended with a digit and joined by hyphens, while random passwords use a mix of letters, digits, and optional punctuation. 
