@@ -1,0 +1,48 @@
+import os
+import random
+import string
+from datetime import datetime
+
+file_path = '/mnt/data/top_english_nouns_lower_100000.txt'
+with open(file_path, 'r') as file:
+    words = [line.strip() for line in file]
+
+os.makedirs('Memorable', exist_ok=True)
+os.makedirs('Random', exist_ok=True)
+
+def save_password(password, password_type):
+    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    if password_type == 'memorable':
+        file_path = 'Memorable/Generated_Passwords.txt'
+    else:
+        file_path = 'Random/Generated_Passwords.txt'
+    with open(file_path, 'a') as f:
+        f.write(f"{password} - Created on: {now}\n")
+
+def generate_memorable_password(num_words=3):
+    selected_words = random.sample(words, num_words)
+    password = '-'.join([f"{word}{random.randint(0, 9)}" for word in selected_words])
+    save_password(password, 'memorable')
+    return password
+
+def generate_random_password(length=12, include_punctuation=True):
+    characters = string.ascii_letters + string.digits
+    if include_punctuation:
+        characters += string.punctuation
+    password = ''.join(random.choice(characters) for _ in range(length))
+    save_password(password, 'random')
+    return password
+
+def password_generator(password_type):
+    if password_type == 'memorable':
+        return generate_memorable_password(num_words=3)
+    else:
+        return generate_random_password(length=12)
+
+for _ in range(1000):
+    if random.choice(['memorable', 'random']) == 'memorable':
+        password_generator('memorable')
+    else:
+        password_generator('random')
+
+print("1000 passwords generated and saved.")
